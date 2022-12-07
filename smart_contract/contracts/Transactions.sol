@@ -5,8 +5,9 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract Transactions {
-    uint256 transactionCount;
-
+    string public Message;
+    uint256 public transactionCount;
+    event UpdatedMessages(string oldStr, string newStr);
     event Transfer(address from, address receiver, uint amount, string message, uint256 timestamp, string keyword);
   
     struct TransferStruct {
@@ -33,5 +34,13 @@ contract Transactions {
 
     function getTransactionCount() public view returns (uint256) {
         return transactionCount;
+    }
+    function update(string memory newMessage) public {
+        string memory oldMsg=Message;
+        Message = newMessage;
+        emit UpdatedMessages(oldMsg, newMessage);
+    }
+    constructor(string memory initMessage){
+        Message = initMessage;
     }
 }
